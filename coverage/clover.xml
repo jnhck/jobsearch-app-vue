@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<coverage generated="1667163519724" clover="3.2.0">
+  <project timestamp="1667163519724" name="All files">
+    <metrics statements="16" coveredstatements="16" conditionals="0" coveredconditionals="0" methods="7" coveredmethods="7" elements="23" coveredelements="23" complexity="0" loc="16" ncloc="16" packages="4" files="6" classes="6"/>
+    <package name="components.job-results">
+      <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+      <file name="JobListing.vue" path="C:\Users\apfel\Dropbox\Coding\VueCourse\job-search\src\components\job-results\JobListing.vue">
+        <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+        <line num="55" count="2" type="stmt"/>
+        <line num="65" count="5" type="stmt"/>
+      </file>
+    </package>
+    <package name="components.navigation">
+      <metrics statements="4" coveredstatements="4" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="2"/>
+      <file name="ProfileImage.vue" path="C:\Users\apfel\Dropbox\Coding\VueCourse\job-search\src\components\navigation\ProfileImage.vue">
+        <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+        <line num="6" count="2" type="stmt"/>
+        <line num="9" count="1" type="stmt"/>
+      </file>
+      <file name="SubNav.vue" path="C:\Users\apfel\Dropbox\Coding\VueCourse\job-search\src\components\navigation\SubNav.vue">
+        <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+        <line num="13" count="2" type="stmt"/>
+        <line num="17" count="2" type="stmt"/>
+      </file>
+    </package>
+    <package name="components.shared">
+      <metrics statements="5" coveredstatements="5" conditionals="0" coveredconditionals="0" methods="3" coveredmethods="3"/>
+      <file name="ActionButton.vue" path="C:\Users\apfel\Dropbox\Coding\VueCourse\job-search\src\components\shared\ActionButton.vue">
+        <metrics statements="3" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="2"/>
+        <line num="8" count="3" type="stmt"/>
+        <line num="20" count="8" type="stmt"/>
+        <line num="26" count="3" type="stmt"/>
+      </file>
+      <file name="TextInput.vue" path="C:\Users\apfel\Dropbox\Coding\VueCourse\job-search\src\components\shared\TextInput.vue">
+        <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+        <line num="12" count="2" type="stmt"/>
+        <line num="28" count="5" type="stmt"/>
+      </file>
+    </package>
+    <package name="utils">
+      <metrics statements="5" coveredstatements="5" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+      <file name="nextElementInList.js" path="C:\Users\apfel\Dropbox\Coding\VueCourse\job-search\src\utils\nextElementInList.js">
+        <metrics statements="5" coveredstatements="5" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+        <line num="1" count="2" type="stmt"/>
+        <line num="2" count="5" type="stmt"/>
+        <line num="3" count="5" type="stmt"/>
+        <line num="4" count="5" type="stmt"/>
+        <line num="5" count="5" type="stmt"/>
+      </file>
+    </package>
+  </project>
+</coverage>
