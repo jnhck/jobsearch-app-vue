@@ -1,7 +1,7 @@
 <template>
   <main class="flex-auto p-8 bg-brand-gray-2">
     <ol>
-      <job-listing v-for="job in jobs" :key="job.id" :job="job" />
+      <job-listing v-for="job in displayedJobs" :key="job.id" :job="job" />
     </ol>
   </main>
 </template>
@@ -20,6 +20,15 @@ export default {
     return {
       jobs: [],
     };
+  },
+  computed: {
+    displayedJobs() {
+      const pageString = this.$route.query.page;
+      const pageNumber = pageString ? parseInt(pageString) : 1;
+      const startIndex = (pageNumber - 1) * 10;
+      const endIndex = startIndex + 10;
+      return this.jobs.slice(startIndex, endIndex);
+    },
   },
   async mounted() {
     const response = await axios.get("http://localhost:3000/jobs");
