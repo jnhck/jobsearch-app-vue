@@ -1,8 +1,15 @@
-import { shallowMount, flushPromises } from "@vue/test-utils";
+import { shallowMount, flushPromises, RouterLinkStub } from "@vue/test-utils";
 import axios from "axios";
 jest.mock("axios");
 
 import JobListings from "@/components/job-results/JobListings.vue";
+beforeEach(() => {
+  axios.get.mockResolvedValue({ data: Array(15).fill({}) });
+});
+
+afterEach(() => {
+  axios.get.mockReset();
+});
 
 describe("JobListings", () => {
   const createRoute = (queryParams = {}) => ({
@@ -12,16 +19,18 @@ describe("JobListings", () => {
     },
   });
 
-  const createConfig = (route) => ({
+  const createConfig = ($route) => ({
     global: {
       mocks: {
-        $route: route,
+        $route,
+      },
+      stubs: {
+        "router-link": RouterLinkStub,
       },
     },
   });
 
   it("fetches jobs", () => {
-    axios.get.mockResolvedValue({ data: [] });
     const $route = createRoute();
     shallowMount(JobListings, createConfig($route));
     expect(axios.get).toHaveBeenCalledWith("http://localhost:3000/jobs");
@@ -34,5 +43,41 @@ describe("JobListings", () => {
     await flushPromises();
     const jobListings = wrapper.findAll("[data-test='job-listing']");
     expect(jobListings).toHaveLength(10);
+  });
+
+  describe("when query params exclude page number", () => {
+    it("displays page number 1", () => {
+      const queryParams = { page: undefined };
+      const $route = createRoute(queryParams);
+      const wrapper = shallowMount(JobListings, createConfig($route));
+      expect(wrapper.text()).toMatch("Page 1");
+    });
+  });
+
+  describe("when query params include page number", () => {
+    it("displays page number", () => {
+      const queryParams = { page: "3" };
+      const $route = createRoute(queryParams);
+      const wrapper = shallowMount(JobListings, createConfig($route));
+      expect(wrapper.text()).toMatch("Page 3");
+    });
+  });
+
+  describe("when user is on first page of job results", () => {
+    it("does not show link to previous page", () => {
+      const queryParams = { page: "1" };
+      const $route = createRoute(queryParams);
+      const wrapper = shallowMount(JobListings, createConfig($route));
+      const previousPageLink = wrapper.find("[data-test='previous-page']");
+      expect(previousPageLink.exists()).toBe(false);
+    });
+
+    it("shows link to next page", () => {
+      const queryParams = { page: "1" };
+      const $route = createRoute(queryParams);
+      const wrapper = shallowMount(JobListings, createConfig($route));
+      const nextPageLink = wrapper.find("[data-test='next-page']");
+      expect(nextPageLink.exists()).toBe(true);
+    });
   });
 });
