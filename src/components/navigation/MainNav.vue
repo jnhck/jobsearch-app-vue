@@ -46,6 +46,7 @@
 import ActionButton from "@/components/shared/ActionButton.vue";
 import ProfileImage from "@/components/navigation/ProfileImage.vue";
 import SubNav from "@/components/navigation/SubNav.vue";
+import { LOGIN_USER } from "@/store";
 
 export default {
   name: "MainNav",
@@ -64,7 +65,6 @@ export default {
         { text: "Students", url: "/" },
         { text: "Jobs", url: "/jobs/results" },
       ],
-      isLoggedIn: false,
     };
   },
   computed: {
@@ -74,10 +74,13 @@ export default {
         "h-32": this.isLoggedIn,
       };
     },
+    isLoggedIn() {
+      return this.$store.state.isLoggedIn;
+    },
   },
   methods: {
     loginUser() {
-      this.isLoggedIn = true;
+      this.$store.commit(LOGIN_USER);
     },
   },
 };

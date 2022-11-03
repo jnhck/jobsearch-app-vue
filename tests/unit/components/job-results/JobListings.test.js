@@ -36,7 +36,7 @@ describe("JobListings", () => {
     expect(axios.get).toHaveBeenCalledWith("http://localhost:3000/jobs");
   });
 
-  it("creates a job listing for a maximum of 10 jobs", async () => {
+  it("creates a job listing for a maximum of 10 jobs per page", async () => {
     axios.get.mockResolvedValue({ data: Array(15).fill({}) });
     const $route = createRoute({ page: "1" });
     const wrapper = shallowMount(JobListings, createConfig($route));
@@ -72,12 +72,35 @@ describe("JobListings", () => {
       expect(previousPageLink.exists()).toBe(false);
     });
 
-    it("shows link to next page", () => {
+    it("shows link to next page", async () => {
       const queryParams = { page: "1" };
       const $route = createRoute(queryParams);
       const wrapper = shallowMount(JobListings, createConfig($route));
+      await flushPromises();
       const nextPageLink = wrapper.find("[data-test='next-page']");
       expect(nextPageLink.exists()).toBe(true);
+    });
+  });
+
+  describe("when user is on last page of job results", () => {
+    it("does not show link to next page", async () => {
+      axios.get.mockResolvedValue({ data: Array(15).fill({}) });
+      const queryParams = { page: "2" };
+      const $route = createRoute(queryParams);
+      const wrapper = shallowMount(JobListings, createConfig($route));
+      await flushPromises();
+      const nextPageLink = wrapper.find("[data-test='next-page']");
+      expect(nextPageLink.exists()).toBe(false);
+    });
+
+    it("shows link to previous page", async () => {
+      axios.get.mockResolvedValue({ data: Array(15).fill({}) });
+      const queryParams = { page: "2" };
+      const $route = createRoute(queryParams);
+      const wrapper = shallowMount(JobListings, createConfig($route));
+      await flushPromises();
+      const previousPageLink = wrapper.find("[data-test='previous-page']");
+      expect(previousPageLink.exists()).toBe(true);
     });
   });
 });
