@@ -1,5 +1,14 @@
 <template>
-  <header-container />
+  <header-container>
+    <template #title>
+      <h1 class="w-full text-4xl font-normal">Teams</h1>
+    </template>
+    <template #subtitle>
+      <h2 class="w-full my-4 text-base font-light">
+        Want to make the world a worse place? Why don't you join us? Be evil!
+      </h2>
+    </template>
+  </header-container>
 </template>
 
 <script>
