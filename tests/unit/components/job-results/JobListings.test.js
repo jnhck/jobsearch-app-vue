@@ -20,7 +20,7 @@ describe("JobListings", () => {
   });
 
   const createStore = (config = {}) => ({
-    state: { jobs: Array(15).fill({}) },
+    getters: { FILTERED_JOBS_BY_ORGANIZATIONS: [] },
     dispatch: jest.fn(),
     ...config,
   });
@@ -56,7 +56,9 @@ describe("JobListings", () => {
   it("creates a job listing for a maximum of 10 jobs per page", async () => {
     // axios.get.mockResolvedValue({ data: Array(15).fill({}) });
     const $route = createRoute({ page: "1" });
-    const $store = createStore({ state: { jobs: Array(15).fill({}) } });
+    const $store = createStore({
+      getters: { FILTERED_JOBS_BY_ORGANIZATIONS: Array(15).fill({}) },
+    });
     const wrapper = shallowMount(JobListings, createConfig($route, $store));
     await flushPromises();
     const jobListings = wrapper.findAll("[data-test='job-listing']");
@@ -96,7 +98,9 @@ describe("JobListings", () => {
     it("shows link to next page", async () => {
       const queryParams = { page: "1" };
       const $route = createRoute(queryParams);
-      const $store = createStore({ state: { jobs: Array(15).fill({}) } });
+      const $store = createStore({
+        getters: { FILTERED_JOBS_BY_ORGANIZATIONS: Array(15).fill({}) },
+      });
       const wrapper = shallowMount(JobListings, createConfig($route, $store));
       await flushPromises();
       const nextPageLink = wrapper.find("[data-test='next-page']");

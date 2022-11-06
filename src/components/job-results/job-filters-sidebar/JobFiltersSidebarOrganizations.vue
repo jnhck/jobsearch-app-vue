@@ -3,21 +3,22 @@
     <div class="mt-5">
       <fieldset>
         <ul class="flex flex-row flex-wrap">
-          <li class="w-1/2 h-8">
-            <input id="VueTube" type="checkbox" class="mr-3" />
-            <label for="VueTube">VueTube</label>
-          </li>
-          <li class="w-1/2 h-8">
-            <input id="Between Vue" type="checkbox" class="mr-3" />
-            <label for="Between Vue">Between Vue</label>
-          </li>
-          <li class="w-1/2 h-8">
-            <input id="Et Vue Brute" type="checkbox" class="mr-3" />
-            <label for="Et Vue Brute">Et Vue Brute</label>
-          </li>
-          <li class="w-1/2 h-8">
-            <input id="Vue and a Half Men" type="checkbox" class="mr-3" />
-            <label for="Vue and a Half Men">Vue and a Half Men</label>
+          <li
+            v-for="organization in sortedOrganizations"
+            :key="organization"
+            class="w-1/2 h-8"
+          >
+            <input
+              :id="organization"
+              v-model="selectedOrganizations"
+              :value="organization"
+              type="checkbox"
+              class="mr-3"
+              @change="selectOrganization"
+            />
+            <label for="organization" data-test="organization">{{
+              organization
+            }}</label>
           </li>
         </ul>
       </fieldset>
@@ -26,12 +27,32 @@
 </template>
 
 <script>
+import { mapGetters, mapMutations } from "vuex";
 import Accordion from "@/components/shared/Accordion.vue";
+import { ADD_SELECTED_ORGANIZATIONS, UNIQUE_ORGANIZATIONS } from "@/store";
 
 export default {
   name: "JobFiltersSidebarOrganizations",
   components: {
     Accordion,
+  },
+  data() {
+    return {
+      selectedOrganizations: [],
+    };
+  },
+  computed: {
+    ...mapGetters([UNIQUE_ORGANIZATIONS]),
+    sortedOrganizations() {
+      const organizations = Array.from(this.UNIQUE_ORGANIZATIONS);
+      return organizations.sort();
+    },
+  },
+  methods: {
+    ...mapMutations([ADD_SELECTED_ORGANIZATIONS]),
+    selectOrganization() {
+      this.ADD_SELECTED_ORGANIZATIONS(this.selectedOrganizations);
+    },
   },
 };
 </script>
